@@ -5,21 +5,41 @@ Elixir's built-in test framework is `ExUnit` and it includes everything we need 
 
 This tutorial assumes you'll be using the `Mix` build tool.  If you're not using `Mix`, see [Running Tests in a Non-Mix Environment](#running-tests-in-a-non-mix-environment) at the end of this document for instructions on how to run tests in a non-Mix environment.
 
-Tests are implemented as Elixir scripts so we need to use the `.exs` file extension. Before we can run our tests we need to start `ExUnit` with `ExUnit.start()`, this is most commonly done in `test/test_helper.exs`.
+When you create a `mix` project, a basic testing structure will be automatically created for you.
+```
+$ mix new hello
+```
+```
+├── lib
+│   └── hello.ex
+├── mix.exs
+├── README.md
+└── test
+    ├── hello_test.exs
+    └── test_helper.exs
+```
 
-## Running Tests
-The test directory comprises two files. The file `test_helper.exs` will set the default configuration of all tests. This contains only one line of code `ExUnit.start` and the file `my_project_test.exs` is where our real test cases sit.
+A `test` directory will be created containing two files:
+- `hello_test.exs` contains our test cases.
+- `test_helper.exs` sets the default configuration of all tests. To start, it contains only one line of code: `ExUnit.start`. This line needs to be called before running any tests.
 
-So basically, when you run the mix test task, it starts the current application, loads up test/test_helper.exs and then requires all files matching the `test/**/_test.exs` pattern in parallel. It loads all the files the have the suffix as `_test.exs`.
+Tests are implemented as Elixir scripts so they need an `.exs` file extension.
 
+You can use the `mix test` command to run all tests in the project. This will load the `test_helper.exs` file before executing the tests (it is not necessary to require the `test_helper.exs` file in your test files). 
+
+Run `mix help test` for more information.
+
+Here are some ways to run tests:
 | Command | Description |
 | ------- | ----------- |
 | `mix test` | Run all the project’s tests. |
 | `mix test test/file_test.exs` | Run all the file's tests. |
 | `mix test test/file_test.exs:10` | Run the test case at line 10. |
 
+When you run the `mix test` task, it starts the current application, loads up `test/test_helper.exs` and then requires all files matching the `test/**/_test.exs` pattern in parallel.
 
-## Assertions
+## Writing Tests
+The use directive is inviting Elixir to import some macros. Think of macros as code that writes code through the use of a template.
 
 | Macro | Description |
 | -------- | ----------- |
