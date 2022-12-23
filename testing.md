@@ -1,7 +1,7 @@
 # Testing
 
 ## ExUnit
-Elixir's built-in test framework is `ExUnit` and it includes everything we need to test code. 
+Elixir's built-in test framework is `ExUnit` and it includes everything needed to test code. 
 
 This tutorial assumes you'll be using the `Mix` build tool.  If you're not using `Mix`, see [Running Tests in a Non-Mix Environment](#running-tests-in-a-non-mix-environment) at the end of this document for instructions on how to run tests in a non-Mix environment.
 
