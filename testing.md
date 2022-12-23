@@ -5,7 +5,19 @@ Elixir's built-in test framework is `ExUnit` and it includes everything we need 
 
 Tests are implemented as Elixir scripts so we need to use the `.exs` file extension. Before we can run our tests we need to start `ExUnit` with `ExUnit.start()`, this is most commonly done in `test/test_helper.exs`.
 
-We can run our project’s tests with `mix test`. 
+## Running Tests
+The test directory comprises two files. The file `test_helper.exs` will set the default configuration of all tests. This contains only one line of code `ExUnit.start` and the file `my_project_test.exs` is where our real test cases sit.
+
+So basically, when you run the mix test task, it starts the current application, loads up test/test_helper.exs and then requires all files matching the `test/**/_test.exs` pattern in parallel. It loads all the files the have the suffix as `_test.exs`.
+
+| Command | Description |
+| ------- | ----------- |
+| `mix test` | Run all the project’s tests. |
+| `mix test test/file_test.exs` | Run all the file's tests. |
+| `mix test test/file_test.exs:10` | Run the test case at line 10. |
+
+
+## Assertions
 
 | Macro | Description |
 | -------- | ----------- |
@@ -19,6 +31,9 @@ We can run our project’s tests with `mix test`.
 
 ## Test Setup
 In some instances it may be necessary to perform setup before our tests. To accomplish this we can use the `setup` and `setup_all` macros. `setup` will be run before each test and `setup_all` once before the suite. It is expected that they will return a tuple of `{:ok, state}`, the state will be available to our tests.
+
+## Test Organization
+You basically have two macros: test and describe to organize your testing scenarios and examples.
 
 ## Test Mocks
 
