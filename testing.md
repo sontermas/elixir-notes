@@ -59,7 +59,7 @@ It contains a few things of note:
 - `test "greets the world" do` defines a test.
 - `assert Hello.hello() == :world` uses the `assert` macro to compare the actual result against the expected result.
 
-Here are a few more 
+The following table lists macros that can be used to make assertions.  We will look at examples of these in subsequent sections.
 | Macro | Description |
 | -------- | ----------- |
 | `assert` | Test that the expression is `true`.  |
