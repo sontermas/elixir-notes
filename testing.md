@@ -25,6 +25,7 @@ A `test` directory will be created containing two files:
 
 Tests are implemented as Elixir scripts so they need an `.exs` file extension.
 
+## Running Tests
 You can use the `mix test` command to run all tests in the project. This will load the `test_helper.exs` file before executing the tests (it is not necessary to require the `test_helper.exs` file in your test files). 
 
 Run `mix help test` for more information.
@@ -39,8 +40,26 @@ Here are some ways to run tests:
 When you run the `mix test` task, it starts the current application, loads up `test/test_helper.exs` and then requires all files matching the `test/**/_test.exs` pattern in parallel.
 
 ## Writing Tests
-The use directive is inviting Elixir to import some macros. Think of macros as code that writes code through the use of a template.
+The following is an example of a basic test file. 
 
+```elixir
+defmodule HelloTest do
+  use ExUnit.Case
+  doctest Hello
+
+  test "greets the world" do
+    assert Hello.hello() == :world
+  end
+end
+```
+
+It contains a few things of note:
+- `use ExUnit.Case` is a `use` directive that imports macros. A macro is code that writes code through the use of a template.
+- `doctest Hello` ignore this for now.
+- `test "greets the world" do` defines a test.
+- `assert Hello.hello() == :world` uses the `assert` macro to compare the actual result against the expected result.
+
+Here are a few more 
 | Macro | Description |
 | -------- | ----------- |
 | `assert` | Test that the expression is `true`.  |
