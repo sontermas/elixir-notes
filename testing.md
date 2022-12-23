@@ -28,8 +28,6 @@ Tests are implemented as Elixir scripts so they need an `.exs` file extension.
 ## Running Tests
 You can use the `mix test` command to run all tests in the project. This will load the `test_helper.exs` file before executing the tests (it is not necessary to require the `test_helper.exs` file in your test files). 
 
-Run `mix help test` for more information.
-
 Here are some ways to run tests:
 | Command | Description |
 | ------- | ----------- |
@@ -38,6 +36,8 @@ Here are some ways to run tests:
 | `mix test test/file_test.exs:10` | Run the test case at line 10. |
 
 When you run the `mix test` task, it starts the current application, loads up `test/test_helper.exs` and then requires all files matching the `test/**/_test.exs` pattern in parallel.
+
+Run `mix help test` for more information.
 
 ## Writing Tests
 The following is an example of a basic test file. 
