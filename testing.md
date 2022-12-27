@@ -191,6 +191,33 @@ It would be nice to be working with data that’s as realistic as possible.
 
 To do this, we can use a fixture file. A simple curl call to the API can provide an actual JSON response payload. We’ve saved that to a file in the application, test/support/weather_api_response.json. Let’s modify our test to use that data instead of the handwritten values we used earlier:
 
+```elixir
+
+  describe "parse_response/1" do
+    setup_all do 
+      response_as_string = 
+        File.read!("test/support/weather_api_response.json")
+
+      response_as_map = Jason.decode!(response_as_string) 
+      %{weather_data: response_as_map}
+    end
+
+    test "success: accepts a valid payload, returns a list of weather structs",
+         %{weather_data: weather_data} do 
+      assert {:ok, parsed_response} = 
+               ResponseParser.parse_response(weather_data)
+
+      for weather_record <- parsed_response do
+        assert match?(
+                 %Weather{datetime: %DateTime{}, rain?: _rain},
+                 weather_record
+               )
+
+        assert is_boolean(weather_record.rain?)
+      end
+    end
+```
+
 ## Test Mocks
 
 ## Doctests?
