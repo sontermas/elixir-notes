@@ -149,10 +149,51 @@ If you have defined functions that follow that pattern, you can pass a list to `
 setup [:create_organization, :with_admin, :with_authenticated_user]
 ```
 
-### setup_all
+### `setup_all`
+You can use `setup_all` if you need a setup step, but you don’t need to repeat it before each test.
 
+Example:
+```elixir
+setup_all do
+  function_to_not_call = fn ->
+    flunk("this function should not have been called")
+  end
+
+  function_to_call = fn -> send(self(), :function_called) end
+  %{bad_function: function_to_not_call, good_function: function_to_call}
+end
+```
+
+### `on_exit` callback
+The `on_exit` callback that lets us organize the teardown stage in a similar way. This callback can be defined inside your setup block or within an individual test.
+
+Example:
+```elixir
+setup do
+  file_name = "example.txt"
+  :ok = File.write(file_name, "hello")
+  
+  on_exit(fn ->
+    File.rm(file_name)
+  end)
+
+  %{file_name: file_name}
+end
+```
+
+Notice that the return value of `setup` is still the last line of the block. `on_exit` will return `:ok`, which is likely not useful for your setup.
+
+As with all anonymous functions in Elixir, the function you pass to `on_exit` is a closure, so you can reference any variables defined
+before the function is defined. `on_exit` is powerful because even if your test fails spectacularly, the anonymous function will still be executed. This helps guarantee the state of your test environment, no matter the outcome of an individual test.
+
+## Fixtures
+It would be nice to be working with data that’s as realistic as possible.
+
+To do this, we can use a fixture file. A simple curl call to the API can provide an actual JSON response payload. We’ve saved that to a file in the application, test/support/weather_api_response.json. Let’s modify our test to use that data instead of the handwritten values we used earlier:
 
 ## Test Mocks
+
+## Doctests?
 
 ## Running Tests in a Non-Mix Environment
 
