@@ -122,6 +122,36 @@ test "does not call the function if the key is wrong", context do
 end
 ```
 
+The scope of your setup is set by the logical grouping of your tests. If your setup is inside of a describe, it'll be run before the tests grouped inside of that describe. If it's at the top of your test file, outside of any describes - it'll be run before all the tests in that file.
+
+Your setups can build on top of each other. If you have a setup that's common to an entire file but also need a setup for your describe block, the setup in your describe can accept values passed to it from the higher-up describe by adding a pattern to the test's parameters.
+```elixir
+setup context do
+  additional_value = "example value"
+  Map.merge(context, %{additional_value: additional_value})
+end
+```
+
+Setup can accept the name of a function or a list of function names instead of a block. Those functions should conform to a pattern that accepts the existing context (the data passed by previous setup blocks or functions) and return an updated context so that they can be piped. 
+
+As you can see in the following example, with_authenticated_user/1 expects a map of the data from previous setup functions,
+adds more data to that map, and then returns that map.
+```elixir
+def with_authenticated_user(context) do
+  user = User.create(%{name: "Bob Robertson"})
+  authenticated_user = TestHelper.authenticate(user)
+  Map.put(context, :authenticated_user, authenticated_user)
+end
+```
+
+If you have defined functions that follow that pattern, you can pass a list to `setup` of the functions to execute:
+```elixir
+setup [:create_organization, :with_admin, :with_authenticated_user]
+```
+
+### setup_all
+
+
 ## Test Mocks
 
 ## Running Tests in a Non-Mix Environment
