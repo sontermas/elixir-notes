@@ -48,7 +48,7 @@ end
 ```
 
 The repo also needs to be added into the supervision tree of the app, inside the start function in `application.ex`.
-```
+```elixir
   def start(_type, _args) do
     children = [
       Linkly.Repo
