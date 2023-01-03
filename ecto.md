@@ -24,8 +24,8 @@ We need the `--sup` flag so that the project has a supervisor. This is for Ecto.
 ```elixir
 defp deps do
   [
-    {:postgrex, ">= 0.0.0"},
-    {:ecto_sql, "~> 3.1"}
+    {:ecto_sql, "~> 3.9"},
+    {:postgrex, "~> 0.16.5"}
   ]
 end
 ```
@@ -62,16 +62,16 @@ Mix projects no longer generate configuration files by default, but we need some
 
 In `config.exs`, we'll add the ecto repos config and import the appropriate config for our environment:
 ```elixir
-use Mix.Config
+import Config
 
 config :linkly, :ecto_repos, [Linkly.Repo]
 
-import_config "#{Mix.env()}.exs"
+import_config "#{config_env()}.exs"
 ```
 
 We'll put off creating the `prod.exs` and `test.exs` config files for now and just create a `dev.exs` with our database credentials:
 ```elixir
-use Mix.Config
+import Config
 
 config :linkly, Linkly.Repo,
   username: "postgres",
