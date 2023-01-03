@@ -69,7 +69,7 @@ config :linkly, :ecto_repos, [Linkly.Repo]
 import_config "#{config_env()}.exs"
 ```
 
-We'll put off creating the `prod.exs` and `test.exs` config files for now and just create a `dev.exs` with our database credentials:
+Create a `dev.exs` and a `test.exs` with the database credentials:
 ```elixir
 import Config
 
@@ -80,3 +80,7 @@ config :linkly, Linkly.Repo,
   hostname: "localhost"
 ```
 
+We'll put off creating the `prod.exs` configuration file for now.
+
+
+## Migrations
