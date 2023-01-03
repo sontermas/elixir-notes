@@ -26,8 +26,6 @@ defp deps do
   [
     {:postgrex, ">= 0.0.0"},
     {:ecto_sql, "~> 3.1"}
-    # {:dep_from_hexpm, "~> 0.3.0"},
-    # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
   ]
 end
 ```
@@ -49,9 +47,14 @@ end
 
 The repo also needs to be added into the supervision tree of the app, inside the start function in `application.ex`.
 ```elixir
-  def start(_type, _args) do
-    children = [
-      Linkly.Repo
+def start(_type, _args) do
+  children = [
+    Linkly.Repo
+  ]
+  
+  opts = [strategy: :one_for_one, name: Linkly.Supervisor]
+  Supervisor.start_link(children, opts)
+end
 ```
 
 ## Configuration
