@@ -69,7 +69,7 @@ config :linkly, :ecto_repos, [Linkly.Repo]
 import_config "#{config_env()}.exs"
 ```
 
-Create a `dev.exs` and a `test.exs` with the database credentials:
+Create a `dev.exs` with the database credentials:
 ```elixir
 import Config
 
@@ -77,6 +77,17 @@ config :linkly, Linkly.Repo,
   username: "postgres",
   password: "postgres",
   database: "linkly_dev",
+  hostname: "localhost"
+```
+
+Create a `test.exs` with the database credentials:
+```elixir
+import Config
+
+config :linkly, Linkly.Repo,
+  username: "postgres",
+  password: "postgres",
+  database: "linkly_test",
   hostname: "localhost"
 ```
 
