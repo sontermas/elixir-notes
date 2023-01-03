@@ -35,7 +35,7 @@ Fetch the deps:
 mix deps.get
 ```
 
-## Creating the repo
+## Creating the Repo
 Create a repo file in the `lib/linkly` directory called, `repo.ex` and add the following contents to configure your Ecto repo:
 ```elixir
 defmodule Linkly.Repo do
